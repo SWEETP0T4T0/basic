@@ -2,6 +2,7 @@ package com.beyond.basic.b1_hello.domain;
 
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 //@Getter
 @NoArgsConstructor   //기본 생성자
@@ -11,4 +12,5 @@ public class Hello {
     private String name;
 //    @Setter  //email 변수에 관한 setter만 생성
     private String email;
+//    private MultipartFile photo;
 }

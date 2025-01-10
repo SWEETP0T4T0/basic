@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>axios form</title>
+</head>
+<body>
+<form>
+    이름 : <input type="text" id="name" name="name">
+    이메일 : <input type="text" id="email" name="email">
+    증명 사진 : <input type="file" id="photos" name="photos" accept="image/*" multiple/>
+    <button type="button" onclick="postData()">제출</button>
+</form>
+<script>
+    async function postData(){
+        const name = document.getElementById("name").value
+        const email = document.getElementById("email").value
+        const fileInput = document.getElementById("photos")
+        const files = fileInput.files;
+        const serverData = new FormData();
+        serverData.append("name", name)
+        serverData.append("email", email)
+        for(let i = 0; i<files.length; i++){
+        serverData.append("photos", files[i])
+        }
+        const result = await axios.post('http://localhost:8080/hello/axios-form-multi-file-view', serverData);
+        console.log(result.data)
+    }
+</script>
+</body>
+</html>
