@@ -25,6 +25,15 @@ dependencies {
 //	컴파일 시점에 필요한 라이브러리를 명시 한 것
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
+
+// mariadb 클라이언트 추가
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+
+// DB연결 및 관리를 위한 의존성 : jdbc, ibatis(mybatis), jpa(spring data jpa)
+//	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+//	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 }
 
 tasks.named('test') {
