@@ -26,9 +26,14 @@ spring:
 #      create : 매번 테이블을 드랍 후 재 생성
 #      update : entity 변경사항만 alter를 적용하고 기존 데이터 유지.(모든 변경사항을 alter 하는 것은 아님) - 컬럼의 추가 정도만 반영
 #      validate : 실제 DB와의 차이만을 check하고 콘솔로만 출력
-    ddl-auto: update
+    ddl-auto: create
 #      콘솔창에 ddl, dml문을 출력하여 보여주는 옵션
     show_sql: true
+#    swagger 2.4 이상 버전을 사용하기 위해 url패턴 관련한 설정 변경
+#  swagger의 url : http://localhost:8080/swagger-ui/
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
 
 
 # mapper 파일(mybatis의 쿼리파일)의 위치를 명시   기본적으로 resources 폴더의 하위를 스캔  **은 모든 파일을 명시

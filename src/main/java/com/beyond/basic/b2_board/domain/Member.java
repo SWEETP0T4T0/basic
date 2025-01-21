@@ -64,9 +64,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @ToString
-//jap의 엔티티매니저에게 객체를 위임하려면 @Entity어노테이션 필요
+//jpa의 엔티티매니저에게 객체를 위임하려면 @Entity어노테이션 필요
 @Entity
-public class Member {
+public class Member extends BaseTimeEntity {
     @Id //pk설정 어노테이션
 //    IDENTITY : auto_increment설정(AUTO설정은 JPA에게 적절한 전략을 위임하는 것)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -77,10 +77,6 @@ public class Member {
     private String email;
     //    @Column(name = "pw") 이렇게 할 수 있으나, 되도록이면 컬럼명과 변수명을 일치시키는 것이 개발의 혼선을 줄일 수 있음.
     private String password;
-    @CreationTimestamp
-    private LocalDateTime createdTime;
-    @UpdateTimestamp
-    private LocalDateTime updateTime;
 
     public Member(String name,String email,String password){
         this.name = name;

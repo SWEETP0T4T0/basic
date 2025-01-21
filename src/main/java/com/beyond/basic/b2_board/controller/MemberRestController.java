@@ -6,10 +6,11 @@ import com.beyond.basic.b2_board.service.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 //모든 메서드에 ResponseBody붙음
+// controller + responsebody(모든메서드에)
+// ControllerAdvice = 모든 컨트롤러에서 발생하는 예외를 가로챈다.
+
 @RestController
 @RequestMapping("/member/rest")
 public class MemberRestController {
@@ -29,40 +30,30 @@ public class MemberRestController {
     //    회원상세조회
     @GetMapping("/detail/{id}")
     public ResponseEntity<?> memberDetail(@PathVariable Long id) {
-        try{
             MemberDetailDto dto = memberService.findById(id);
             return new ResponseEntity<>(new CommonDto(HttpStatus.OK.value()
                     ,"member is found"
                     , dto)
                     , HttpStatus.OK);
-        }catch (EntityNotFoundException e){
-            return new ResponseEntity<>(new CommonErrorDto(HttpStatus.NOT_FOUND.value()
-                    , e.getMessage())
-                    , HttpStatus.NOT_FOUND);
-        }
     }
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> memberCreatePost(@RequestBody MemberCreateDto dto) {
-        try{
             Member member = memberService.save2(dto);
             return new ResponseEntity<>(new CommonDto(HttpStatus.CREATED.value()
                     ,"member is created"
                     , member.getId()), HttpStatus.CREATED);
-        }catch (IllegalArgumentException e){
-            return new ResponseEntity<>(new CommonErrorDto(HttpStatus.BAD_REQUEST.value()
-                    ,e.getMessage())
-                    , HttpStatus.BAD_REQUEST);
-        }
     }
 
     //    get:조회, post:등록, patch:부분수정, put:대체, delete:삭제
 //    axios.patch
     @PatchMapping("/update/pw")
-    public String updatePw(@RequestBody MemberUpdateDto dto){
-        memberService.updatePw(dto);
-        return null;
+    public ResponseEntity<?> updatePw(@RequestBody MemberUpdateDto dto){
+            memberService.updatePw(dto);
+            return new ResponseEntity<>(new CommonDto(HttpStatus.OK.value(), "change is complete", dto),HttpStatus.OK);
+
+
     }
 
     @DeleteMapping("/delete/{id}")
